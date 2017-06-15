@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_number": "712145724422",
+    "firebase_url": "https://reparapcapp.firebaseio.com",
+    "project_id": "reparapcapp",
+    "storage_bucket": "reparapcapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712145724422:android:4b0c948f9ebf01a6",
+        "android_client_info": {
+          "package_name": "com.oscod.arielsv.reparapcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712145724422-kgpn2jug8c7d343f3fdbr8ntjohej7cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_JzZ8QLUuWznXDDqrEPZpH7wMHF3JjBw"
+        },
+        {
+          "current_key": "AIzaSyCynmWosF7xWgOpFgzBNS5ORx6Sk_UzzWw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

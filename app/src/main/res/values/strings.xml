@@ -4,6 +4,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien tellus, cursus eget mauris volutpat, maximus aliquam erat. Proin ornare, lectus quis pretium rhoncus, arcu quam dignissim neque, nec lacinia sapien odio nec elit. Cras et dui in nunc porttitor pulvinar. Praesent lacinia ac risus a laoreet. Aliquam fringilla condimentum tempor. Maecenas vulputate consectetur libero nec sollicitudin. Cras tristique eget ligula sit amet malesuada. Nam vitae dolor a ante rutrum mattis quis vel urna. Etiam fermentum consequat elit, ut ultricies tortor. Maecenas eget enim quis ligula tristique tempus. In id orci leo.
+
+</string>
 
     <string name="action_settings">Settings</string>
 </resources>

@@ -11,12 +11,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oscod.arielsv.reparapcapp.Users.UsersActivity;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    CarouselView carouselView;
+
+    int[] sampleImages = {R.drawable.delete_filled_50, R.drawable.icondeletewhite, R.drawable.iconupdate, R.drawable.iconupdatewhite, R.drawable.plusadd};
 
     TextView username,email;
     String nombre,apellidop,apellidom,emailadmin;
@@ -64,8 +72,22 @@ public class Home extends AppCompatActivity
             hideItem();
         }
 
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+
+        carouselView.setImageListener(imageListener);
+
+
+
 
     }
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
 
 
 
@@ -119,6 +141,7 @@ public class Home extends AppCompatActivity
             Intent intent = new Intent(Home.this,MainActivity.class);
             MainActivity.login = true;
             startActivity(intent);
+            finish();
 
         }
 

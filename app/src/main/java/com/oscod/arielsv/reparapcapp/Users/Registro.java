@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +39,9 @@ public class Registro extends Fragment implements View.OnClickListener {
     FloatingActionButton btnRegister;
     int aux = 0;
     int userid=1;
+    String usermail;
     List<Usuario> usuarioList;
+    boolean inserta;
 
 
     @Override
@@ -53,16 +58,13 @@ public class Registro extends Fragment implements View.OnClickListener {
                     Usuario usuario = dataSnapshot1.getValue(Usuario.class);
                     dataSnapshot.getKey();
                      userid = usuario.getId();
+                    usermail = usuario.getEmail();
                     if (!(userid == 0)) {
                         if (aux < userid) {
                             aux = userid;
                         }
                         userid=aux+1;
                     }
-
-
-
-
                     usuarioList.add(usuario);
                 }
 
@@ -89,8 +91,13 @@ public class Registro extends Fragment implements View.OnClickListener {
         ciudad = (EditText) view.findViewById(R.id.ciudad);
         email = (EditText) view.findViewById(R.id.email);
         btnRegister.setOnClickListener(this);
-
-
+        nombre.addTextChangedListener(textWatcher);
+        apellidoP.addTextChangedListener(textWatcher);
+        apellidoM.addTextChangedListener(textWatcher);
+        telefono.addTextChangedListener(textWatcher);
+        ciudad.addTextChangedListener(textWatcher);
+        email.addTextChangedListener(textWatcher);
+        btnRegister.setEnabled(false);
         return view;
 
     }
@@ -100,11 +107,22 @@ public class Registro extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.btnRegister:
+                for (int i = 0; i < usuarioList.size(); i++) {
+                    if (email.getText().toString().equals(usuarioList.get(i).getEmail())) {
+                        inserta=false;
+                        break;
+                    } else {
+                       inserta=true;
+                    }
 
-                InsertUser();
-                //Toast.makeText(getContext(), ""+usuarioList.size(), Toast.LENGTH_SHORT).show();
+                }
+                if (inserta){
+                    InsertUser();
+                    Toast.makeText(getContext(), "Usuario Agregado", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Email en uso", Toast.LENGTH_SHORT).show();
+                }
                 break;
-
         }
     }
 
@@ -115,6 +133,29 @@ public class Registro extends Fragment implements View.OnClickListener {
         Usuario usuario = new Usuario(nombre.getText().toString(), apellidoP.getText().toString(), apellidoM.getText().toString(), telefono.getText().toString(), ciudad.getText().toString(), email.getText().toString(),userid);
         myRef.child(FirebaseReferences.USER+""+userid).setValue(usuario);
     }
+
+
+
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (nombre.getText().toString().equals("") && (apellidoP.getText().toString().equals("")) && (apellidoM.getText().toString().equals("")) && (telefono.getText().toString().equals("")) && (ciudad.getText().toString().equals("")) && (email.getText().toString().equals(""))){
+                btnRegister.setEnabled(false);
+            }else {
+                btnRegister.setEnabled(true);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 
 
 }

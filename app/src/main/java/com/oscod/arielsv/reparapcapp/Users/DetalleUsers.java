@@ -106,21 +106,25 @@ public class DetalleUsers extends AppCompatActivity  {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child(FirebaseReferences.USER+""+id).removeValue();
-                AlertDialog.Builder alert = new AlertDialog.Builder(DetalleUsers.this);
-                View view = getLayoutInflater().inflate(R.layout.dialog_ok_layout,null);
-                //TextView textView = (TextView) view.findViewById(R.id.textContent);
-                Button button = (Button) view.findViewById(R.id.btnOk);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onBackPressed();
-                    }
-                });
-                alert.setView(view);
-                AlertDialog dialog = alert.create();
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
+                if (!(email.getText().toString().equals("admin@msn.com"))) {
+                    myRef.child(FirebaseReferences.USER + "" + id).removeValue();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(DetalleUsers.this);
+                    View view = getLayoutInflater().inflate(R.layout.dialog_ok_layout, null);
+                    //TextView textView = (TextView) view.findViewById(R.id.textContent);
+                    Button button = (Button) view.findViewById(R.id.btnOk);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onBackPressed();
+                        }
+                    });
+                    alert.setView(view);
+                    AlertDialog dialog = alert.create();
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
+                }else {
+                    Toast.makeText(DetalleUsers.this, "Imposible eliminar este usuario", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -1,5 +1,7 @@
 package com.oscod.arielsv.reparapcapp.Users;
 
+import java.io.Serializable;
+
 /**
  * Created by ArielSV on 07/06/17.
  */
@@ -7,28 +9,22 @@ package com.oscod.arielsv.reparapcapp.Users;
 public class Usuario {
 
     String nombre;
-    String apellidop;
-    String apellidom;
+    String apaterno;
+    String amaterno;
     String telefono;
     String ciudad;
     String email;
-    int id;
+    String id;
 
-
-    public Usuario(String nombre, String apellidop, String apellidom, String telefono, String ciudad, String email,int id) {
+    public Usuario(String nombre, String apaterno, String amaterno, String telefono, String ciudad, String email, String id) {
         this.nombre = nombre;
-        this.apellidop = apellidop;
-        this.apellidom = apellidom;
+        this.apaterno = apaterno;
+        this.amaterno = amaterno;
         this.telefono = telefono;
         this.ciudad = ciudad;
         this.email = email;
         this.id = id;
     }
-
-    public Usuario(){
-
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -37,20 +33,20 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getApellidop() {
-        return apellidop;
+    public String getApaterno() {
+        return apaterno;
     }
 
-    public void setApellidop(String apellidop) {
-        this.apellidop = apellidop;
+    public void setApaterno(String apaterno) {
+        this.apaterno = apaterno;
     }
 
-    public String getApellidom() {
-        return apellidom;
+    public String getAmaterno() {
+        return amaterno;
     }
 
-    public void setApellidom(String apellidom) {
-        this.apellidom = apellidom;
+    public void setAmaterno(String amaterno) {
+        this.amaterno = amaterno;
     }
 
     public String getTelefono() {
@@ -77,13 +73,22 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getId() {
+    public String getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(String id) {
         this.id = id;
     }
+
+
+
+
+    public Usuario(){
+
+    }
+
+
 
   /*  @Override
     public String toString() {

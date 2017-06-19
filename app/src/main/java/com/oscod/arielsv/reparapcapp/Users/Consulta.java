@@ -45,7 +45,7 @@ public class Consulta extends Fragment {
                         Usuario lista = (Usuario) v.getTag();
                         //Toast.makeText(getContext(), "click:" + lista.getId(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(),DetalleUsers.class);
-                        intent.putExtra("ID",lista.getId());
+                        intent.putExtra("ID",lista.getID());
                         startActivity(intent);
                         break;
                 }

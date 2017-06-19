@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetalleUsers extends AppCompatActivity  {
-
     List<Usuario> usuarioList;
     EditText nombre;
     EditText apellidoP;
@@ -32,18 +31,15 @@ public class DetalleUsers extends AppCompatActivity  {
     FloatingActionButton btnRegister;
     FloatingActionButton btnUpdate;
     FloatingActionButton btnConfirm;
-    int id;
-
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
-
         if (extras != null) {
-             id = extras.getInt("ID");
+             id = extras.getString("ID");
         }
         setContentView(R.layout.activity_detalle_users);
-
         btnRegister = (FloatingActionButton) findViewById(R.id.btnRegister);
         btnUpdate = (FloatingActionButton) findViewById(R.id.btnDelete);
         nombre = (EditText) findViewById(R.id.nombre);
@@ -59,41 +55,29 @@ public class DetalleUsers extends AppCompatActivity  {
         telefono.setEnabled(false);
         ciudad.setEnabled(false);
         email.setEnabled(false);
-
-
-
-
-
         usuarioList = new ArrayList<>();
         FirebaseDatabase database =FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference(FirebaseReferences.USERSREFERENCES);
         myRef.child(FirebaseReferences.USER+""+id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Usuario usuario = dataSnapshot.getValue(Usuario.class);
                 try
                 {
                     nombre.setText(usuario.getNombre());
-                    apellidoP.setText(usuario.getApellidop());
-                    apellidoM.setText(usuario.getApellidom());
+                    apellidoP.setText(usuario.getApaterno());
+                    apellidoM.setText(usuario.getAmaterno());
                     telefono.setText(usuario.getTelefono());
                     ciudad.setText(usuario.getCiudad());
                     email.setText(usuario.getEmail());
-
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
-
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +86,6 @@ public class DetalleUsers extends AppCompatActivity  {
                 onBackPressed();
             }
         });
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +110,6 @@ public class DetalleUsers extends AppCompatActivity  {
                 }
             }
         });
-
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,16 +128,11 @@ public class DetalleUsers extends AppCompatActivity  {
                 }
             }
         });
-
     }
-
     public void InsertUser() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(FirebaseReferences.USERSREFERENCES);
         Usuario usuario = new Usuario(nombre.getText().toString(), apellidoP.getText().toString(), apellidoM.getText().toString(), telefono.getText().toString(), ciudad.getText().toString(), email.getText().toString(),id);
         myRef.child(FirebaseReferences.USER+""+id).setValue(usuario);
     }
-
-
-
 }

@@ -17,23 +17,16 @@ import com.oscod.arielsv.reparapcapp.R;
 public class UsersActivity extends AppCompatActivity  {
 
     private TabLayout tabLayout;
-
     private ViewPager viewPager;
-
     ImageView backButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-
         backButton=(ImageView) findViewById(R.id.backbutton);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         addFragments();
-
         tabLayout.setupWithViewPager(viewPager);
         addIcon();
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -42,10 +35,7 @@ public class UsersActivity extends AppCompatActivity  {
                onBackPressed();
             }
         });
-
     }
-
-
     public void addIcon(){
         Drawable myIcon = getResources().getDrawable( R.drawable.plus_filled_50 );
         Drawable myIcon2 = getResources().getDrawable( R.drawable.group_of_questions_filled_50 );
@@ -58,18 +48,12 @@ public class UsersActivity extends AppCompatActivity  {
 //        tabLayout.getTabAt(2).setIcon(R.drawable.registry_editor_filled_50);
 //        tabLayout.getTabAt(3).setIcon(R.drawable.delete_filled_50);
     }
-
     public void addFragments(){
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
         DetailPagerAdapter adapter = new DetailPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Registro(), "");
         adapter.addFragment(new Consulta(), "");
-
         viewPager = (ViewPager) findViewById(R.id.pager);
-
-
         viewPager.setAdapter(adapter);
-
     }
 }

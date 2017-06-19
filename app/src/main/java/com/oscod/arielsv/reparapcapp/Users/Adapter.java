@@ -36,8 +36,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.UsersHolder> {
     public void onBindViewHolder(UsersHolder holder, int position) {
         Usuario usuario = usuarioList.get(position);
         holder.nombre.setText(usuario.getNombre());
-        holder.apeillidop.setText(usuario.getApellidop());
-        holder.apellidom.setText(usuario.getApellidom());
+        holder.apeillidop.setText(usuario.getApaterno());
+        holder.apellidom.setText(usuario.getAmaterno());
         holder.telefono.setText(usuario.getTelefono());
         holder.ciudad.setText(usuario.getCiudad());
         holder.email.setText(usuario.getEmail());

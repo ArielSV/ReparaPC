@@ -30,6 +30,7 @@ import java.util.List;
 
 public class Registro extends Fragment implements View.OnClickListener {
 
+
     EditText nombre;
     EditText apellidoP;
     EditText apellidoM;
@@ -41,7 +42,7 @@ public class Registro extends Fragment implements View.OnClickListener {
     int userid=1;
     String usermail;
     List<Usuario> usuarioList;
-    boolean inserta;
+    boolean inserta=true;
 
 
     @Override
@@ -57,7 +58,7 @@ public class Registro extends Fragment implements View.OnClickListener {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Usuario usuario = dataSnapshot1.getValue(Usuario.class);
                     dataSnapshot.getKey();
-                     userid = usuario.getId();
+                     userid = Integer.parseInt(usuario.getID());
                     usermail = usuario.getEmail();
                     if (!(userid == 0)) {
                         if (aux < userid) {
@@ -130,7 +131,7 @@ public class Registro extends Fragment implements View.OnClickListener {
     public void InsertUser() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(FirebaseReferences.USERSREFERENCES);
-        Usuario usuario = new Usuario(nombre.getText().toString(), apellidoP.getText().toString(), apellidoM.getText().toString(), telefono.getText().toString(), ciudad.getText().toString(), email.getText().toString(),userid);
+        Usuario usuario = new Usuario(nombre.getText().toString(), apellidoP.getText().toString(), apellidoM.getText().toString(), telefono.getText().toString(), ciudad.getText().toString(), email.getText().toString(),String.valueOf(userid));
         myRef.child(FirebaseReferences.USER+""+userid).setValue(usuario);
     }
 

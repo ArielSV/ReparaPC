@@ -5,4 +5,5 @@
     <color name="colorAccent">#757575</color>
     <color name="icons">#9E9E9E</color>
     <color name="etiqueta">#FFF9C4</color>
+    <color name="fondofragment">#ffff</color>
 </resources>

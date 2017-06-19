@@ -14,18 +14,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oscod.arielsv.reparapcapp.Equipos.EquiposFragmentMain;
+import com.oscod.arielsv.reparapcapp.Equipos.EquiposMain;
+import com.oscod.arielsv.reparapcapp.Equipos.RegistroEquipo;
 import com.oscod.arielsv.reparapcapp.Users.UsersActivity;
+import com.oscod.arielsv.reparapcapp.Users.Usuario;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
     CarouselView carouselView;
-
     int[] sampleImages = {R.drawable.delete_filled_50, R.drawable.icondeletewhite, R.drawable.iconupdate, R.drawable.iconupdatewhite, R.drawable.plusadd};
-
     TextView username,email;
     String nombre,apellidop,apellidom,emailadmin;
     NavigationView navigationView;
@@ -36,26 +36,16 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.login = false;
-
-
-
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         View header=navigationView.getHeaderView(0);
-
         username = (TextView)header.findViewById(R.id.nameuser);
         email = (TextView)header.findViewById(R.id.emailuser);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             nombre = (extras.getString(FirebaseReferences.NAME));
@@ -64,92 +54,71 @@ public class Home extends AppCompatActivity
             username.setText(nombre+" "+apellidop+" "+apellidom);
             emailadmin =extras.getString(FirebaseReferences.EMAIL).toString();
             email.setText(emailadmin);
-        }
-
-        if (emailadmin.equals("admin@msn.com")){
-            showItem();
-        }else {
-            hideItem();
+            if (emailadmin.equals("admin@msn.com")){
+                showItem();
+            }else {
+                hideItem();
+            }
         }
 
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
-
         carouselView.setImageListener(imageListener);
-
-
-
-
     }
-
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
             imageView.setImageResource(sampleImages[position]);
         }
     };
-
-
-
-
     @Override
     public void onBackPressed() {
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
             Intent intent = new Intent(this,UsersActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_gallery) {
-
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.equipos) {
+           /* Intent intent = new Intent(this, EquiposMain.class);
+            startActivity(intent);
+            finish(); */
+            EquiposFragmentMain myFragment = new EquiposFragmentMain();
+            getSupportFragmentManager().beginTransaction().replace(R.id.containerFragment,myFragment).commit();
         } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
             Intent intent = new Intent(Home.this,MainActivity.class);
             MainActivity.login = true;
             startActivity(intent);
             finish();
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     private void hideItem()
     {
         navigationView = (NavigationView) findViewById(R.id.nav_view);

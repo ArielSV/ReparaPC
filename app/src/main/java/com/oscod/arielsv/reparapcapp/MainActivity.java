@@ -21,10 +21,9 @@ import com.oscod.arielsv.reparapcapp.Users.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity  {
-
-
     List<Usuario> usuarioList;
     EditText user;
     EditText pass;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity  {
     static boolean login = true;
     boolean error;
     ProgressDialog progressDialog;
+    boolean start=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,39 +41,30 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         user = (EditText) findViewById(R.id.user);
         pass = (EditText) findViewById(R.id.pass);
-
         user.setOnLongClickListener(new View.OnLongClickListener() {
-
             @Override
             public boolean onLongClick(View v) {
-
                user.setText("admin@msn.com");
                 return false;
             }
         });
-
-
         usuarioList = new ArrayList<>();
-
-
         button = (Button) findViewById(R.id.btnLogin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (start) {
+                    Intent intent = new Intent(MainActivity.this, Home.class);
+                    startActivity(intent);
+                    finish();
+                }
                 error = true;
-
                ProcessData p = new ProcessData();
                 p.execute(10);
-
-
             }
         });
-
-
-
     }
     public class ProcessData extends AsyncTask<Integer,String,String> {
-
         @Override
         protected String doInBackground(Integer... params) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -81,18 +72,16 @@ public class MainActivity extends AppCompatActivity  {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
                         Usuario usuario = dataSnapshot1.getValue(Usuario.class);
+                        //usuarioList.add(dataSnapshot.getValue(Usuario.class));
                         if (login) {
                             if (user.getText().toString().equals(usuario.getEmail()) && pass.getText().toString().equals(usuario.getTelefono())) {
                                 Intent intent = new Intent(MainActivity.this, Home.class);
                                 intent.putExtra(FirebaseReferences.NAME, usuario.getNombre());
                                 intent.putExtra(FirebaseReferences.EMAIL, usuario.getEmail());
-                                intent.putExtra(FirebaseReferences.APELLIDOP, usuario.getApellidop());
-                                intent.putExtra(FirebaseReferences.APELLIDOM, usuario.getApellidom());
+                                intent.putExtra(FirebaseReferences.APELLIDOP, usuario.getApaterno());
+                                intent.putExtra(FirebaseReferences.APELLIDOM, usuario.getAmaterno());
                                 startActivity(intent);
                                 finish();
                                 error = true;
@@ -106,9 +95,7 @@ public class MainActivity extends AppCompatActivity  {
                         progressDialog.dismiss();
                         Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
                     }
-
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
@@ -116,7 +103,6 @@ public class MainActivity extends AppCompatActivity  {
 
             return "DONE";
         }
-
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(MainActivity.this,ProgressDialog.THEME_HOLO_DARK);
@@ -127,15 +113,9 @@ public class MainActivity extends AppCompatActivity  {
            // progressDialog.setCancelable(false);
             progressDialog.show();
         }
-
         @Override
         protected void onPostExecute(String s) {
 
         }
     }
-
-
-
-
-
 }
